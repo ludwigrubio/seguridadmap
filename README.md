@@ -122,26 +122,26 @@ Diríjase al archivo 'gulp/config.json' dentro de este proyecto, localice las si
         baseWMSURL: http://geodelito.example/geoserver/mapa_jalisco/wms
 
 
-##CUENTAS DE ACCESO
+## CUENTAS DE ACCESO
 
 Una vez montado, se habrán creado 3 cuetas de manera automática por cada uno de los diferentes roles
 que pueden utilizar esta plataforma:
 
-####Administrador
+#### Administrador
 __Usuario__: Admin / 
 __Contraseña__: Admin
 
 
-####Investigador
+#### Investigador
 __Usuario__: Investigador /
 __Contraseña__: Investigador
 
 
-####Ciudadano
+#### Ciudadano
 __Usuario__: Ciudadano /
 __Contraseña__: Ciudadano
 
 
-##LICENCIAMIENTO
+## LICENCIAMIENTO
 
 [GNU AFFERO GENERAL PUBLIC LICENSE](https://www.gnu.org/licenses/licenses.es.html#AGPL)
