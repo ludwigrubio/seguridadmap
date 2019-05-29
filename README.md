@@ -82,7 +82,7 @@ Las pruebas de rendimiento son dirigidas por __[Gatling]__ y escritas en Scala. 
     ./mvnw gatling:execute
 
 
-##Configuraciones
+## Configuraciones
 
 
 Para lograr la ejecución exitosa de este proyecto deberá tomar en cuenta las siguientes configuraciones:
