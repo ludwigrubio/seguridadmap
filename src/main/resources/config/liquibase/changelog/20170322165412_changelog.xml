@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+   <changeSet author="ludwig (generated)" id="1490201695467-1">
+      <createTable tableName="file">
+         <column autoIncrement="true" name="id" type="BIGINT">
+            <constraints primaryKey="true" primaryKeyName="filePK"/>
+         </column>
+         <column name="creation_date" type="VARCHAR(255)"/>
+         <column name="file_name" type="VARCHAR(255)"/>
+         <column name="postal_code" type="BYTEA"/>
+         <column name="uri" type="VARCHAR(255)">
+            <constraints nullable="false"/>
+         </column>
+         <column name="file_author_id" type="BIGINT"/>
+      </createTable>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-2">
+      <addForeignKeyConstraint baseColumnNames="file_author_id"
+                               baseTableName="file"
+                               constraintName="FKt5mamkbg1941mewjjbny9rpyx"
+                               deferrable="false"
+                               initiallyDeferred="false"
+                               referencedColumnNames="id"
+                               referencedTableName="jhi_user"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-3">
+      <dropForeignKeyConstraint baseTableName="user_report" constraintName="fk_user_report_autor_id"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-4">
+      <dropView viewName="geography_columns"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-5">
+      <dropView viewName="geometry_columns"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-6">
+      <dropView viewName="raster_columns"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-7">
+      <dropView viewName="raster_overviews"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-8">
+      <dropTable tableName="spatial_ref_sys"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-9">
+      <dropColumn columnName="alias_policia" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-10">
+      <dropColumn columnName="anonimo" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-11">
+      <dropColumn columnName="apellido_materno_denunciado" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-12">
+      <dropColumn columnName="apellido_materno_denunciante" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-13">
+      <dropColumn columnName="apellido_paterno_denunciado" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-14">
+      <dropColumn columnName="apellido_paterno_denunciante" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-15">
+      <dropColumn columnName="autor_id" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-16">
+      <dropColumn columnName="calle_cruce_delito" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-17">
+      <dropColumn columnName="calle_delito" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-18">
+      <dropColumn columnName="calle_principal_delito" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-19">
+      <dropColumn columnName="color_unidada_policia" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-20">
+      <dropColumn columnName="corporacion_policia" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-21">
+      <dropColumn columnName="correo_denunciante" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-22">
+      <dropColumn columnName="cp_denunciante" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-23">
+      <dropColumn columnName="delito" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-24">
+      <dropColumn columnName="descripcion_denunciado" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-25">
+      <dropColumn columnName="descripcion_domicilio_delito" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-26">
+      <dropColumn columnName="descripcion_hechos_policia" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-27">
+      <dropColumn columnName="dia_delito" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-28">
+      <dropColumn columnName="domicilio_denunciante" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-29">
+      <dropColumn columnName="domicilio_policia" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-30">
+      <dropColumn columnName="estado_reporte" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-31">
+      <dropColumn columnName="fecha_delito_policia" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-32">
+      <dropColumn columnName="genero" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-33">
+      <dropColumn columnName="genero_denunciado" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-34">
+      <dropColumn columnName="hora_aproximada_delito_policia" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-35">
+      <dropColumn columnName="horario_delito" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-36">
+      <dropColumn columnName="municipio_policia" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-37">
+      <dropColumn columnName="narracion_delito" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-38">
+      <dropColumn columnName="nombre_denunciado" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-39">
+      <dropColumn columnName="nombre_denunciante" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-40">
+      <dropColumn columnName="nombre_policia" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-41">
+      <dropColumn columnName="num_int_delito" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-42">
+      <dropColumn columnName="numero_ext_delito" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-43">
+      <dropColumn columnName="numero_unidad_policia" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-44">
+      <dropColumn columnName="observacion" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-45">
+      <dropColumn columnName="placas_policia" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-46">
+      <dropColumn columnName="policia" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-47">
+      <dropColumn columnName="position" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-48">
+      <dropColumn columnName="sobrenombre_denunciado" tableName="user_report"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1490201695467-49">
+      <dropColumn columnName="telefono_denunciante" tableName="user_report"/>
+   </changeSet>
+</databaseChangeLog>

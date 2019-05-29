@@ -1,0 +1,93 @@
+<div>
+    <h2 data-translate="seguridMapApp.wms.home.title">Wms</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div uib-alert id="abstract-wms" class="abstract-custom alert" close="closeAlert('abstract-wms')">
+            <div class="description">
+
+                <p>WMS de su acrónimo en inglés <a target="_blank" href="http://www.opengeospatial.org/standards/wms">Web Map Service</a> es un estándar de servicios geográficos diseñado por la OMS, que permite re-utilzar datos geográficos.</p>
+
+                <p>Seguridad Map APP ha sido creado con software libre, utilizando el servidor de datos geográficos en la nube más usado del mundo, <a target="_blank" href="http://geoserver.org/">Geoserver</a>.</p>
+
+                <p>Por lo que ponemos a tu disposición la posibilidad de capturar servicios WMS provenientes de otros Geoservers, que podrán ser utilizados para crear tus propios Mapas, cruzando la información de Seguridad Map APP con distintas capas de datos.</p>
+
+                <p>Hecha un vistazo a algunos Geoservers que pueden ser de utilidad:</p>
+
+                <br>
+                <ul>
+                    <li>
+                    <a target="_blank" href="http://mapa.guadalajara.gob.mx:8080/geoserver/">Ayuntamiento de Guadalajara</a>
+                    </li>
+                    <li>
+                    <a target="_blank" href="http://geo.datos.jalisco.gob.mx/geoserver/">Gobierno de Jalisco</a>
+                    </li>
+                </ul>
+                <p class="consult-manual">
+                    Consulta más detalles en tu <a href="#">manual de usuario </a> en la sección <strong>Investigador</strong>.
+                </p>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="wms.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span  data-translate="seguridMapApp.wms.home.createLabel">
+                        Create new Wms
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                    <th jh-sort-by="id"><span data-translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="nombre"><span data-translate="seguridMapApp.wms.nombre">Nombre</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="url"><span data-translate="seguridMapApp.wms.url">Url</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="capa"><span data-translate="seguridMapApp.wms.capa">Capa</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="wms in vm.wms track by wms.id">
+                    <td><a ui-sref="wms-detail({id:wms.id})">{{wms.id}}</a></td>
+                    <td>{{wms.nombre}}</td>
+                    <td>{{wms.url}}</td>
+                    <td>{{wms.capa}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="wms-detail({id:wms.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm" data-translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="wms.edit({id:wms.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="wms.delete({id:wms.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm" data-translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+        <uib-pagination class="pagination-sm" total-items="vm.totalItems" items-per-page="vm.itemsPerPage" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+{
+    "seguridMapApp": {
+        "mcfg": {
+            "title": "Configuración de aplicaciones móviles",
+            "url" : "La cadena ingresada no es una URL válida",
+            "required": "El campo es obligatorio",
+            "cacheTitle" : "Permanencia en caché",
+            "cacheDescr" : "Tiempo de permanencia de configuraciones (Tiempo en minutos)",
+            "maxFileSizeTitle" : "Tamaño máximo de carga de archivo",
+            "maxFileSizeDescr" : "Tamaño máximo de archivo (MB)",
+            "dictUriTitle" : "Enlace a diccionario de datos",
+            "dictUriDescr" : "Enlace a diccionario de datos (XLS)",
+            "panicButtonApp" : "Enlace a botón del pánico",
+            "panicButtonAppDescr" : "Enlace a botón del pánico",
+            "denunAppLink" : "Enlace a aplicativo web de denuncias",
+            "denunAppLinkDescr" : "Enlace a aplicativo web de denuncias",
+            "whyCreateTitle" : "¿Por qué crear una cuenta?",
+            "whyCreateDescr" : "Texto descriptivo a mostrar en apartado '¿Por qué crear una cuenta?' del aplicativo móvil (HTML)",
+            "aboutTitle" : "Acerca de",
+            "aboutDescr" : "Texto descriptivo a mostrar en apartado 'Acerca de' del aplicativo móvil (HTML)",
+            "termsAndConditionsTitle" : "Términos y condiciones",
+            "termsAndConditionsDescr" : "Texto descriptivo a mostrar en apartado 'Términos y condiciones' del aplicativo móvil (HTML)",
+            "defaultProfileImageTitle" : "Imagen de perfil",
+            "defaultProfileImageDescr" : "URL de la imagen a mostrar cuando el usuario no tenga una configurada (PNG, JPG)",
+            "translationsTitle" : "Traducción de cadenas",
+            "translationsDescr" : "Configuración avanzada de traducción de cadenas (JSON)",
+            "unexpectedError" : "Error inesperado, contacte al administrador del sitio"
+        },
+        "configStore": {
+            "updated" : "Configuración almacenada"
+        }
+    }
+}

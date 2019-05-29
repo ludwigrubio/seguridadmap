@@ -1,0 +1,53 @@
+<div class="side-menu" ng-show="vm.isAuthenticated()">
+    <nav class="navbar-second navbar-default" role="navigation">
+        <!-- Main Menu -->
+        <div class="side-menu-container">
+
+            <div class="profile text-center">
+                <br>
+                <div class="row">
+                    <div class="continer-picture">
+                        <img class="user-picture" src="{{vm.imageProfile}}" />
+                    </div>
+                </div>
+                <br>
+                <div class="hidden-xs row">
+                    <h3 ng-bind="vm.user.login"></h3>
+                    <h4 class="complete-name"><span ng-bind="vm.user.firstName"></span> <span ng-bind="vm.user.lastName"></span></h4>
+                    <div>
+                        <button class="btn btn-primary" ng-click="vm.logout()">Cerrar sesión</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <ul class="nav navbar-nav">
+                <li ui-sref-active="active">
+                    <a ui-sref="home">
+                        <span class="glyphicon glyphicon-home"></span>
+                        <span data-translate="global.menu.home">Home</span>
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="settings">
+                        <span class="glyphicon glyphicon-wrench"></span>
+                        <span data-translate="global.menu.config">Config</span>
+                    </a>
+                </li>
+                <li ui-sref-active="active" has-authority="ROLE_INVESTIGADOR">
+                    <a ui-sref="panel">
+                        <span class="glyphicon glyphicon-folder-open"></span>
+                        <span data-translate="global.menu.entities.panel">Mis Mapas</span>
+                    </a>
+                </li>
+                <li ng-show="vm.swaggerEnabled" ui-sref-active="active" has-authority="ROLE_ADMIN">
+                    <a ui-sref="docs" ng-click="vm.collapseNavbar()">
+                        <span class="glyphicon glyphicon-signal"></span>
+                        <span data-translate="global.menu.admin.apidocs">API</span>
+                    </a>
+                </li>
+
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </nav>
+</div>

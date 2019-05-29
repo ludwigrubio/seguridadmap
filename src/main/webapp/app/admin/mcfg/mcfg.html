@@ -1,0 +1,158 @@
+<div>
+    <h2 data-translate="seguridMapApp.mcfg.title"></h2>
+    <jhi-alert></jhi-alert>
+    <form name="mcfgForm" class="mcfg-form" novalidate ng-submit="vm.save()" >
+        <div class="cache form-group row">
+            <div class="col-sm-6">
+                <h4 data-translate="seguridMapApp.mcfg.cacheTitle"></h4>
+                <input name="cacheDuration" type="number" class="form-control" ng-model="vm.config.cacheDuration" required step=0.01  />
+            </div>
+            <span class="small col-sm-12" data-translate="seguridMapApp.mcfg.cacheDescr"></span>
+            <div class="small col-sm-12" ng-show="mcfgForm.cacheDuration.$invalid">
+                <p class="help-block danger"
+                   data-translate="seguridMapApp.mcfg.required"
+                   ng-show="mcfgForm.cacheDuration.$error.required">
+                </p>
+            </div>
+        </div>
+
+        <div class="max-file-size form-group row">
+            <div class="col-sm-6">
+                <h4 data-translate="seguridMapApp.mcfg.maxFileSizeTitle"></h4>
+                <input type="number" name="maxFileUpload" class="form-control" ng-model="vm.config.maxFileUpload" required step=0.01  />
+            </div>
+            <span class="small col-sm-12" data-translate="seguridMapApp.mcfg.maxFileSizeDescr"></span>
+            <div class="small col-sm-12" ng-show="mcfgForm.maxFileUpload.$invalid">
+                <p class="help-block danger"
+                   data-translate="seguridMapApp.mcfg.required"
+                   ng-show="mcfgForm.maxFileUpload.$error.required">
+                </p>
+            </div>
+        </div>
+
+
+        <div class="dictUri form-group row">
+            <div class="col-sm-6">
+                <h4 data-translate="seguridMapApp.mcfg.dictUriTitle"></h4>
+                <input name="dictUri" type="text" class="form-control" ng-model="vm.config.dictUri" ng-pattern="/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/" required />
+            </div>
+            <span class="small col-sm-12" data-translate="seguridMapApp.mcfg.dictUriDescr"></span>
+            <div class="small col-sm-12" ng-show="mcfgForm.dictUri.$invalid">
+                <p class="help-block danger"
+                   data-translate="seguridMapApp.mcfg.required"
+                   ng-show="mcfgForm.dictUri.$error.required">
+                </p>
+                <p class="help-block danger"
+                   data-translate="seguridMapApp.mcfg.url"
+                   ng-show="mcfgForm.dictUri.$error.pattern">
+                </p>
+            </div>
+        </div>
+
+        <div class="panicButtonApp form-group row">
+            <div class="col-sm-6">
+                <h4 data-translate="seguridMapApp.mcfg.panicButtonApp"></h4>
+                <input name="panicButtonApp" type="text" class="form-control" ng-model="vm.config.panicButtonApp" ng-pattern="/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/" required />
+            </div>
+            <span class="small col-sm-12" data-translate="seguridMapApp.mcfg.panicButtonAppDescr"></span>
+            <div class="small col-sm-12" ng-show="mcfgForm.panicButtonApp.$invalid">
+                <p class="help-block danger"
+                   data-translate="seguridMapApp.mcfg.required"
+                   ng-show="mcfgForm.panicButtonApp.$error.required">
+                </p>
+                <p class="help-block danger"
+                   data-translate="seguridMapApp.mcfg.url"
+                   ng-show="mcfgForm.panicButtonApp.$error.pattern">
+                </p>
+            </div>
+        </div>
+
+        <div class="denunAppLink form-group row">
+            <div class="col-sm-6">
+                <h4 data-translate="seguridMapApp.mcfg.denunAppLink"></h4>
+                <input name="denunAppLink" type="text" class="form-control" ng-model="vm.config.denunAppLink" ng-pattern="/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/"  />
+            </div>
+            <span class="small col-sm-12" data-translate="seguridMapApp.mcfg.denunAppLinkDescr"></span>
+            <div class="small col-sm-12" ng-show="mcfgForm.denunAppLink.$invalid">
+                <p class="help-block danger"
+                   data-translate="seguridMapApp.mcfg.url"
+                   ng-show="mcfgForm.denunAppLink.$error.pattern">
+                </p>
+            </div>
+        </div>
+
+        <div class="defaultProfileImage form-group row">
+            <div class="col-sm-6">
+                <h4 data-translate="seguridMapApp.mcfg.defaultProfileImageTitle"></h4>
+                <input name="defaultProfileImage" type="text" class="form-control" ng-model="vm.config.defaultProfileImage" ng-pattern="/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/" required />
+            </div>
+            <span class="small col-sm-12" data-translate="seguridMapApp.mcfg.defaultProfileImageDescr"></span>
+            <div class="small col-sm-12" ng-show="mcfgForm.dictUri.$invalid">
+                <p class="help-block danger"
+                   data-translate="seguridMapApp.mcfg.required"
+                   ng-show="mcfgForm.defaultProfileImage.$error.required">
+                </p>
+            </div>
+        </div>
+
+
+        <div class="why-create form-group row">
+            <div class="col-sm-6">
+                <h4 data-translate="seguridMapApp.mcfg.whyCreateTitle"></h4>
+                <textarea rows="5" name="whyCreate" class="form-control" ng-model="vm.config.whyCreate" required >
+                </textarea>
+            </div>
+            <span class="small col-sm-12" data-translate="seguridMapApp.mcfg.whyCreateDescr"></span>
+            <div class="small col-sm-12" ng-show="mcfgForm.whyCreate.$invalid">
+                <p class="help-block danger"
+                   data-translate="seguridMapApp.mcfg.required"
+                   ng-show="mcfgForm.whyCreate.$error.required">
+                </p>
+            </div>
+        </div>
+
+        <div class="about form-group row">
+            <div class="col-sm-6">
+                <h4 data-translate="seguridMapApp.mcfg.aboutTitle"></h4>
+                <textarea rows="5" name="about" class="form-control" ng-model="vm.config.about" required>
+                </textarea>
+            </div>
+            <span class="small col-sm-12" data-translate="seguridMapApp.mcfg.aboutDescr"></span>
+            <div class="small col-sm-12" ng-show="mcfgForm.about.$invalid">
+                <p class="help-block danger"
+                   data-translate="seguridMapApp.mcfg.required"
+                   ng-show="mcfgForm.about.$error.required">
+                </p>
+            </div>
+        </div>
+
+        <div class="termsAndConditions form-group row">
+            <div class="col-sm-6">
+                <h4 data-translate="seguridMapApp.mcfg.termsAndConditionsTitle"></h4>
+                <textarea rows="5" name="termsAndConditions" class="form-control" ng-model="vm.config.termsAndConditions" required >
+                </textarea>
+            </div>
+            <span class="small col-sm-12" data-translate="seguridMapApp.mcfg.termsAndConditionsDescr"></span>
+            <div class="small col-sm-12" ng-show="mcfgForm.termsAndConditions.$invalid">
+                <p class="help-block danger"
+                   data-translate="seguridMapApp.mcfg.required"
+                   ng-show="mcfgForm.termsAndConditions.$error.required">
+                </p>
+            </div>
+        </div>
+
+
+        <div class="translations form-group row">
+            <div class="col-sm-6">
+                <h4 data-translate="seguridMapApp.mcfg.translationsTitle"></h4>
+                <textarea rows="5" class="form-control" ng-model="vm.config.translations">
+                </textarea>
+            </div>
+            <span class="small col-sm-12" data-translate="seguridMapApp.mcfg.translationsDescr"></span>
+        </div>
+
+        <button type="submit" ng-disabled="mcfgForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span data-translate="entity.action.save">Save</span>
+        </button>
+    </form>
+</div>

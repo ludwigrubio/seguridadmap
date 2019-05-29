@@ -1,0 +1,19 @@
+{
+    "seguridMapApp": {
+        "file" : {
+          "updated": "Configuración actualizada"
+        },
+        "config" : {
+	        "title" : "Archivo de delitos",
+            "subtitle" : "(Georreferenciados y no georreferenciados)",
+	        "uploadFile" : "Adjuntar",
+	        "saveFile" : "Guardar",
+	        "error" : "Error al subir archivo",
+            "titleFile":"Adjuntar archivo",
+            "titleDate":"Fecha de actualización"
+        },
+        "configStore" : {
+	        "updated" : "Configuración almacenada correctamente"
+        }
+    }
+}

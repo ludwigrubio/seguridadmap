@@ -1,0 +1,5 @@
+id;nombre;url;capa;author_id
+1;Barrios tradicionales;http://mapa.guadalajara.gob.mx:8080/geoserver/gdlsig/wms;gdlsig:barriostradicionales;3
+2;Areas de influencia;http://mapa.guadalajara.gob.mx:8080/geoserver/gdlsig/wms;gdlsig:Zonas_2016;3
+3;Zonas de guadalajara;http://mapa.guadalajara.gob.mx:8080/geoserver/gdlsig/wms;gdlsig:Zonas_2016;3
+

@@ -1,0 +1,25 @@
+{
+    "seguridMapApp": {
+        "panel" : {
+            "home": {
+                "title": "Panels",
+                "createLabel": "Create a new Panel",
+                "createOrEditLabel": "Create or edit a Panel",
+                "search": "Search for Panel"
+            },
+            "created": "A new Panel is created with identifier {{ param }}",
+            "updated": "A Panel is updated with identifier {{ param }}",
+            "deleted": "A Panel is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Panel {{ id }}?"
+            },
+            "detail": {
+                "title": "Panel"
+            },
+            "nombre": "Nombre",
+            "descripcion": "Descripcion",
+            "wms": "Wms",
+            "author": "Author"
+        }
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "seguridMapApp": {
+        "wms" : {
+            "home": {
+                "title": "Servicio WMS",
+                "createLabel": "Crear nuevo WMS",
+                "createOrEditLabel": "Crear o editar WMS",
+                "search": "Search for WMS"
+            },
+            "created": "Un nuevo Wms ha sido creado con el identificador {{ param }}",
+            "updated": "Un Wms ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Wms ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar WMS {{ id }}?"
+            },
+            "detail": {
+                "title": "Servicio WMS"
+            },
+            "nombre": "Nombre",
+            "url": "URL",
+            "capa": "Capa",
+            "author": "Autor"
+        }
+    }
+}

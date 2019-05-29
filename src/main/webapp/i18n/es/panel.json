@@ -1,0 +1,25 @@
+{
+    "seguridMapApp": {
+        "panel" : {
+            "home": {
+                "title": "Mapa",
+                "createLabel": "Crear nuevo Mapa",
+                "createOrEditLabel": "Crear o editar Mapa",
+                "search": "Search for Mapa"
+            },
+            "created": "Un nuevo Mapa ha sido creado con el identificador {{ param }}",
+            "updated": "Un Mapa ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Mapa ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Mapa {{ id }}?"
+            },
+            "detail": {
+                "title": "Mapa"
+            },
+            "nombre": "Nombre",
+            "descripcion": "Descripcion",
+            "wms": "WMS",
+            "author": "Autor"
+        }
+    }
+}

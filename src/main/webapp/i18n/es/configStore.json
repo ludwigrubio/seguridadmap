@@ -1,0 +1,23 @@
+{
+    "seguridMapApp": {
+        "configStore" : {
+            "home": {
+                "title": "Config Stores",
+                "createLabel": "Crear nuevo Config Store",
+                "createOrEditLabel": "Crear o editar Config Store",
+                "search": "Search for Config Store"
+            },
+            "created": "Un nuevo Config Store ha sido creado con el identificador {{ param }}",
+            "updated": "Un Config Store ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Config Store ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Config Store {{ id }}?"
+            },
+            "detail": {
+                "title": "Config Store"
+            },
+            "key": "Key",
+            "value": "Value"
+        }
+    }
+}

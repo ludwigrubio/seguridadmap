@@ -1,0 +1,30 @@
+<div>
+    <h2 data-translate="seguridMapApp.config.title"></h2>
+    <span class="strong" data-translate="seguridMapApp.config.subtitle"></span>
+    <jhi-alert></jhi-alert>
+    <br>
+    <br>
+    <form name="configForm" class="config-form" role="form" show-validation>
+        <h3 data-translate="seguridMapApp.config.titleDate"></h3>
+        <div class="date form-group row">
+            <div class="col-sm-6">
+                <input type="date" class="form-control" ng-model="vm.updateDate" enable-time="false"/>
+            </div>
+            <span class="small col-sm-12"><strong>Formato: (MM-DD-AAAA).</strong> Esta fecha será utilizada para ser mostrada en el mapa de análisis como última fecha de actaulización</span>
+        </div>
+        <br>
+        <br>
+        <h3 data-translate="seguridMapApp.config.titleFile"></h3>
+        <div class="file form-group" style="background-color: #f7f7f7; padding: 10px" >
+	        <div  style="border: 1px solid #009688;" class="btn btn-primary" ngf-select ng-model="vm.file" ngf-pattern="'.csv,.xls,.xlsx'"
+	             ngf-accept="'.csv,.xls,.xlsx'" ngf-max-size="20MB">
+		          <span class="glyphicon glyphicon-cloud-upload"></span>
+	            <span ng-if="!vm.file" data-translate="seguridMapApp.config.uploadFile"></span>
+	            <span ng-if="vm.file.name" ng-bind="vm.file.name"></span>
+	            <span ng-if="vm.file.fileName" ng-bind="vm.file.fileName"></span>
+	        </div>
+	    </div>
+
+	    <button ng-disabled=" (vm.file==null && vm.updateDate==null) || vm.updateDate==null " class="btn btn-danger" ng-click="vm.save()" data-translate="seguridMapApp.config.saveFile"></button>
+    </form>
+</div>

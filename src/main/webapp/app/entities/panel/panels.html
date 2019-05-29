@@ -1,0 +1,81 @@
+<div>
+    <h2 data-translate="seguridMapApp.panel.home.title">Panels</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div uib-alert id="abstract-maps" class="abstract-custom alert" close="closeAlert('abstract-maps')">
+            <div class="description">
+                <p>Los mapas te permitirán extender la funcionalidad de Seguridad Map APP, creando tus propios mapas con datos estandarizados WMS  (<a target="_blank" href="http://www.opengeospatial.org/standards/wms">Web Map Service</a>) de terceros.</p>
+
+                <p>Para crear un mapa primeramente deberás <a href="/#/wms">capturar un servicio  WMS</a>, que podrás asociar a tus mapas.</p>
+                <br>
+                <p class="consult-manual">
+                    Consulta más detalles en tu <a href=”#”>manual de usuario </a> en la sección <strong>Investigador</strong>.
+                </p>
+
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="panel.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span  data-translate="seguridMapApp.panel.home.createLabel">
+                        Create new Panel
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                    <th jh-sort-by="id"><span data-translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="nombre"><span data-translate="seguridMapApp.panel.nombre">Nombre</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="descripcion"><span data-translate="seguridMapApp.panel.descripcion">Descripcion</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="wms.nombre"><span data-translate="seguridMapApp.panel.wms">Wms</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="panel in vm.panels track by panel.id">
+                    <td><a ui-sref="page-panel({id:panel.id})">{{panel.id}}</a></td>
+                    <td>{{panel.nombre}}</td>
+                    <td>{{panel.descripcion}}</td>
+                    <td>
+                        <a ui-sref="wms-detail({id:panel.wms.id})">{{panel.wms.nombre}}</a>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="page-panel({id:panel.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm" data-translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="panel.edit({id:panel.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="panel.delete({id:panel.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm" data-translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+        <uib-pagination class="pagination-sm" total-items="vm.totalItems" items-per-page="vm.itemsPerPage" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
+    </div>
+</div>

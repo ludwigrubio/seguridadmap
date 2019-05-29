@@ -1,0 +1,35 @@
+
+<div>
+    <h2><span data-translate="seguridMapApp.wms.detail.title">Wms</span> {{vm.wms.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="seguridMapApp.wms.nombre">Nombre</span></dt>
+        <dd>
+            <span>{{vm.wms.nombre}}</span>
+        </dd>
+        <dt><span data-translate="seguridMapApp.wms.url">Url</span></dt>
+        <dd>
+            <span>{{vm.wms.url}}</span>
+        </dd>
+        <dt><span data-translate="seguridMapApp.wms.capa">Capa</span></dt>
+        <dd>
+            <span>{{vm.wms.capa}}</span>
+        </dd>
+        <dt><span data-translate="seguridMapApp.wms.author">Author</span></dt>
+        <dd>
+            {{vm.wms.author.id}}
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="wms-detail.edit({id:vm.wms.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -1,0 +1,684 @@
+<div ng-cloak>
+    <h2 class="title">Mapa de análisis</h2>
+
+    <div class="modal fade" id="modalNotes" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title" id="titleModalNotes">Bienvenido a tu mapa de análisis</h4>
+                </div>
+                <div class="modal-body" ng-bind-html="vm.abstracts.delitos"></div>
+                <div class="date-update text-center"><strong>Los datos presentados son con corte al día: {{vm.updateDate}}</strong></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalDistanceAlert" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Error en búsqueda</h4>
+                </div>
+                <div class="modal-body" ng-if="vm.typeErrorMeasure == 1">
+                    El valor máximo de área permitido es {{vm.maxAreaLimit}} km<sup>2</sup>
+                </div>
+                <div class="modal-body" ng-if="vm.typeErrorMeasure == 0 ">
+                    El valor máximo de búsqueda por radio es {{vm.maxRadioLimit}} km
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Map WRAPPER-->
+    <div class="map-wrapper">
+        <div class="wrapper-search">
+            <div angucomplete-alt id="search-map"
+                 placeholder="Buscar en el mapa ..."
+                 maxlength="50"
+                 pause="100"
+                 selected-object="vm.selectedAG"
+                 local-data="vm.objectsAG"
+                 text-no-results="No se encontraron resultados"
+                 text-searching="Buscando..."
+                 search-fields="nombre"
+                 title-field="nombre"
+                 description-field="description"
+                 minlength="3"
+                 input-class="form-control form-control-small"
+                 match-class="highlight">
+            </div>
+            <button class="btn btn-clear-search btn-slim" ng-click="clearInput()">Borrar</button>
+        </div>
+        <openlayers id="main1" class="panel-map" height="600px" width="100%"></openlayers>
+        <div class="instructions hidden-xs" ng-click="removeInstructions()">
+            <div class="row">
+                <div class="col-sm-4" id="zoom-inst">
+                    <span class="arrow-inst">}</span> Utiliza los botones para ver más o menos detalles
+                </div>
+                <div class="col-sm-4 text-center" id="title-inst">
+                    <h3 class="hidden-sm">Bienvenido a tu mapa de análisis</h3>
+                </div>
+                <div class="col-sm-4 text-right">
+                    <a href="" id="cross-instructions" title="Cerrar ayuda">X</a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4" id="search-inst">
+                    <span class="arrow-inst">}</span> Realiza búsquedas por polígonos o círculos
+                </div>
+                <div class="col-sm-4 text-center" id="search-text-inst">
+                   <div class="arrow-inst rotate-90">{</div>
+                    Busca información de tu colonia, municipio o AGEB.
+                </div>
+                <div class="col-sm-4 text-right" id="layers-inst">
+                    Activa o desactiva distintas capas <span class="arrow-inst invert">{</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6" id="search-inst">
+                    <span class="arrow-inst">}</span> Realiza búsquedas por coordenada
+                </div>
+            </div>
+            <div class="row" id="nomenclatura-inst">
+                <div class="col-sm-8 text-center">
+                    Mira lo que representa cada color
+                    <div class="arrow-inst rotate">{</div>
+                </div>
+                <div class="col-sm-4 text-center">
+                    Activa o desactiva la visualización del grado de marginación
+                    <div class="arrow-inst rotate">{</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="nomenclatura" class="row">
+        <div class="col-md-3 text-center delitos-wrapper"  ng-if="!vm.filters.compare_delito">
+            <div class="nom-title">Influencia de delitos</div>
+            <div class="color-band-delitos"></div>
+            <div class="row">
+                <div class="col-xs-6 text-left">Mayor</div>
+                <div class="col-xs-6 text-right">Menor</div>
+            </div>
+        </div>
+        <div class="col-md-3 text-center delitos-wrapper"  ng-if="vm.filters.compare_delito">
+            <div class="nom-title">Comparación delitos</div>
+            <div class="row">
+                <div class="col-xs-12 text-left">
+
+                    <div class="squared-data circle" id="sq-delito1"></div>
+                    <span ng-if="vm.filters.delitos"> {{vm.filters.delitos}}</span>
+                    <span ng-if="!vm.filters.delitos"> No ha seleccionado delito </span>
+                </div>
+                <div class="col-xs-12 text-left">
+
+                    <div class="squared-data circle" id="sq-delito2"></div>
+                    <span ng-if="vm.filters.delitos_compare"> {{vm.filters.delitos_compare}}</span>
+                    <span ng-if="!vm.filters.delitos_compare"> No ha seleccionado delito </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 text-center">
+            <div class="nom-title">Marginación</div>
+            <div class="row">
+                <div class="col-sm-offset-1 col-sm-2">
+                    Muy alto
+                    <div class="squared-data" id="sq-ma"></div>
+                </div>
+                <div class="col-sm-2">
+                    Alto
+                    <div class="squared-data" id="sq-a"></div>
+                </div>
+                <div class="col-sm-2">
+                    Medio
+                    <div class="squared-data" id="sq-m"></div>
+                </div>
+                <div class="col-sm-2">
+                    Bajo
+                    <div class="squared-data" id="sq-b"></div>
+                </div>
+                <div class="col-sm-2">
+                    Muy Bajo
+                    <div class="squared-data" id="sq-mb"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <ul class="styles-switcher">
+                <li>
+                    <label>
+                        <input ng-disabled=" !vm.filters.municipios && !vm.filters.visible_layers.municipios" type="checkbox" value="" id="switch_style_municipio" ng-model="vm.filters.style_marginacion.municipios.status" >
+                        Marginación por municipios
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <input ng-disabled=" !vm.filters.agebs && !vm.filters.visible_layers.agebs" type="checkbox" value="" id="switch_style_agebs" ng-model="vm.filters.style_marginacion.agebs.status" >
+                        Marginación por AGEBS
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <input ng-disabled=" !vm.filters.colonia && !vm.filters.visible_layers.colonias" type="checkbox" value="" id="switch_style_colonias" ng-model="vm.filters.style_marginacion.colonias.status" >
+                        Marginación por colonias
+                    </label>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <div id="popup" class="ol-popup">
+        <a href="#" id="popup-closer" class="ol-popup-closer">X</a>
+        <div id="popup-content"></div>
+    </div>
+    <div id='info'></div>
+    <br>
+    <div class="row">
+            <div uib-alert id="delitos-abstract" class="alert alert-success" close="closeAlert()">
+                <div class="description text-center">
+                    <div ng-bind-html="vm.abstracts.delitos">
+                    </div>
+                    <br>
+                    <div>
+                        <div>Para consultar todos los delitos (Georreferenciados y No Georreferenciados):</div>
+                        <a ng-href="{{vm.fullDataFileSrc}}" ng-show="vm.fullDataFileSrc" ng-click="functionToDownloadFile()" class="btn btn-sm btn-default  btn-marked" target="_blank" id="dwn-full-data" >Descargar Tabla de Datos</a>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="row box-filters">
+        <form class="row">
+
+            <div class="form-group row text-center" ng-if="vm.cql.map.gm">
+                <button class="btn btn-primary" ng-click="vm.cql.map.gm = null">Remover polígono de búsqueda</button>
+            </div>
+
+            <fieldset class="form-group row" id="wrapper-filters-inegi" ng-if="!vm.cql.map.gm">
+                <legend>Filtrar por áreas geográficas:</legend>
+
+                <div class="{{vm.columnFilterCLass}}">
+                    <label class="control-label">Región</label>
+
+                    <ui-select ng-model="vm.filters.region"  title="Selecciona una región">
+                    <ui-select-match placeholder="Seleccionar región" allow-clear="true">
+                            <span ng-bind="$select.selected.properties.region">{{$select.selected.properties.region}}</span>
+                        </ui-select-match>
+                        <ui-select-choices repeat="item in (vm.catalogs.regiones.features | filter: $select.search) track by item.properties.region">
+                            <span ng-bind="item.properties.region"></span>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+
+                <div class="{{vm.columnFilterCLass}}">
+                    <label class="control-label">Municipio</label>
+
+                    <ui-select ng-disabled='!vm.catalogs.municipios.features' ng-model="vm.filters.municipios"  title="Selecciona un municipio">
+                    <ui-select-match placeholder="Seleccionar municipio" allow-clear="true">
+                            <span ng-bind="$select.selected.properties.nombre">{{$select.selected.properties.nombre}}</span>
+                        </ui-select-match>
+                        <ui-select-choices repeat="item in (vm.catalogs.municipios.features | filter: $select.search) track by item.properties.nombre">
+                            <span ng-bind="item.properties.nombre"></span>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+
+                <div  class="{{vm.columnFilterCLass}}"  has-any-authority="ROLE_INVESTIGADOR,ROLE_ADMIN">
+                    <label class="control-label">AGEB</label>
+                    <ui-select ng-disabled='!vm.filters.municipios || !vm.catalogs.agebs.features.length > 0' ng-model="vm.filters.agebs"  title="Selecciona un AGEB">
+                        <ui-select-match placeholder="Seleccionar AGEB" allow-clear="true">
+                            <span ng-bind="$select.selected.properties.cve_geoage">{{$select.selected.properties.cve_geoage}}</span>
+                        </ui-select-match>
+                        <ui-select-choices repeat="item in (vm.catalogs.agebs.features | filter: $select.search) track by item.properties.cve_geoage">
+                            <span ng-bind="item.properties.cve_geoage"></span>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+
+                <div  class="{{vm.columnFilterCLass}}">
+                    <label class="control-label">Colonia</label>
+                    <ui-select ng-disabled='!vm.filters.municipios || !vm.catalogs.colonias.features.length > 0' ng-model="vm.filters.colonia"  title="Selecciona una colonia">
+                        <ui-select-match placeholder="Seleccionar colonia" allow-clear="true">
+                            <span ng-bind="$select.selected.properties.nombre">{{$select.selected.properties.nombre}}</span>
+                        </ui-select-match>
+                        <ui-select-choices repeat="item in (vm.catalogs.colonias.features | filter: $select.search) track by item.properties.cid">
+                            <span ng-bind="item.properties.nombre"></span>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </fieldset>
+
+            <fieldset class="form-group row" id="wrapper-delitos-filters">
+                <legend>Filtrar delitos:</legend>
+
+                <div  class="col-sm-6" >
+                    <div  class="col-sm-12">
+                        <label class="control-label">Tipo delito</label>
+
+                        <ui-select ng-model="vm.filters.delitos"  title="Selecciona un tipo de delito">
+                            <ui-select-match placeholder="Seleccionar tipo de delito" allow-clear="true">
+                                <span ng-bind="$select.selected">{{$select.selected}</span>
+                            </ui-select-match>
+                            <ui-select-choices repeat="item in (vm.catalogs.tipos_delitos | orderBy:'toString()' | filter: $select.search)">
+                                <span ng-bind="item"></span>
+                            </ui-select-choices>
+                        </ui-select>
+
+                        <div class="checkbox" ng-if="vm.filters.delitos">
+                            <label >
+                                <input type="checkbox" value=""  ng-model="vm.filters.compare_delito" >
+                                Comparar con otro tipo
+                            </label>
+                        </div>
+
+                        <div class="wrapper-compare-with" ng-show="vm.filters.compare_delito&&vm.filters.delitos">
+                            <label class="control-label">Comparar con:</label>
+                            <ui-select ng-model="vm.filters.delitos_compare"  title="Selecciona un tipo de delito a comparar">
+                                <ui-select-match placeholder="Seleccionar otro tipo de delito" allow-clear="true">
+                                    <span ng-bind="$select.selected">{{$select.selected}</span>
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in (vm.catalogs.tipos_delitos | orderBy:'toString()' | filter: $select.search)">
+                                    <span ng-bind="item"></span>
+                                </ui-select-choices>
+                            </ui-select>
+                       </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+
+                    <label class="control-label">Filtrar delitos por fecha</label>
+                   <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value=""  ng-model="vm.filters.type_filter_year" > Filtrar por fechas exactas
+                            <div class="small" ng-show="vm.filters.type_filter_year">La aplicación cuenta con registro de delitos hasta el día: {{vm.updateDate}}</div>
+                        </label>
+                    </div>
+                    <div class="filter-by-year" ng-show="!vm.filters.type_filter_year">
+                        <rzslider rz-slider-model="years_delitos.minValue"
+                                  rz-slider-high="years_delitos.maxValue"
+                                  rz-slider-options="years_delitos.options">
+                        </rzslider>
+                    </div>
+                    <div class="filter-by-date" ng-show="vm.filters.type_filter_year">
+                        <div class="col-sm-6">
+                            <label class="control-label">De</label>
+                            <input type="date" class="form-control"  ng-model="vm.filters.pickerStart.date" enable-time="false"/>
+
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="control-label">a</label>
+                            <input type="date" class="form-control"  ng-model="vm.filters.pickerEnd.date" enable-time="false"/>
+
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <br>
+    <br>
+    <!-- GRAFICAS DELITOS  -->
+    <div class="row">
+        <div class=" col-md-12">
+            <div class="panel panel-primary text-center count-tota-delitos">
+                <div class="panel-heading">Total de delitos</div>
+                <div class="panel-body" style="overflow: hidden">{{vm.totalDelitos| number}} </div>
+            </div>
+        </div>
+        <!-- DELITOS TIPO -->
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">Delitos por tipo
+                    <button id="download-chart-delitos-tipo" class="pull-right btn btn-sm btn-default" has-any-authority="ROLE_CIUDADANO,ROLE_INVESTIGADOR,ROLE_ADMIN" >Descargar PNG</button>
+                </div>
+                <div class="panel-body" style="overflow: hidden">
+                    <div id="description-delitos-tipo" class="description-chart text-center">
+                        <div ng-if="vm.filters.region || vm.filters.municipios || vm.filters.agebs || vm.filters.colonia">
+                            <span ng-if="vm.filters.region && !vm.filters.municipios"><strong>Región:</strong> {{vm.filters.region.properties.region}}</span>
+                            <span ng-if="vm.filters.municipios"><strong>Municipio:</strong> {{vm.filters.municipios.properties.nombre}}</span>
+                            <span ng-if="vm.filters.agebs">| <strong>AGEB:</strong> {{vm.filters.agebs.properties.cve_geoage}}</span>
+                            <span ng-if="vm.filters.colonia">| <strong>Colonia:</strong> {{vm.filters.colonia.properties.nombre}}</span>
+                        </div>
+                        <div ng-if="!vm.filters.type_filter_year">( {{years_delitos.minValue}}<span ng-if="years_delitos.minValue!=years_delitos.maxValue"> a {{years_delitos.maxValue}}</span> )</div>
+                        <div ng-if="vm.filters.type_filter_year">( {{vm.filters.pickerStart.date | date:'dd/MM/yyyy'}} a {{vm.filters.pickerEnd.date | date:'dd/MM/yyyy'}} )</div>
+                    </div>
+                    <highchart id="delitos-tipo" config="vm.blocks.delitos_graph.tipo"  width="100%" ></highchart>
+                    <div class="hidden" id="table-delitos-tipo">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>TIPO</th>
+                                <th>NUMERO DE DELITOS</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="row in vm.delitoTipo" >
+                                <td>{{row.name}}</td>
+                                <td>{{row.y}}</td>
+                            </tr>
+                            </tbody>
+                            <caption ng-bind-html="vm.captionDescription"></caption>
+                        </table>
+                    </div>
+                    <div class="btn-downlaod-wraper text-right" has-any-authority="ROLE_CIUDADANO,ROLE_INVESTIGADOR,ROLE_ADMIN">
+                        <a ng-click="downloadDelitosTipo()" class="btn btn-sm btn-default  btn-marked" target="_blank" href >Descargar Tabla de Datos</a>
+                    </div>
+                    <br>
+                    <div class="description text-right"><strong>Fuente:</strong> Fiscalía General del Estado de Jalisco.</div>
+                </div>
+            </div>
+        </div>
+        <!-- DELITOS AÑO -->
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">Delitos por año
+                    <button id="download-chart-delitos-anio" class="pull-right btn btn-sm btn-default" has-any-authority="ROLE_CIUDADANO,ROLE_INVESTIGADOR,ROLE_ADMIN" >Descargar PNG</button>
+                </div>
+                <div class="panel-body" style="overflow: hidden">
+                        <div id="description-delitos-anio"  class="description-chart text-center">
+                            <div ng-if="vm.filters.region || vm.filters.municipios || vm.filters.agebs || vm.filters.colonia">
+                                <span ng-if="vm.filters.region && !vm.filters.municipios"><strong>Región:</strong> {{vm.filters.region.properties.region}}</span>
+                                <span ng-if="vm.filters.municipios"><strong>Municipio:</strong> {{vm.filters.municipios.properties.nombre}}</span>
+                                <span ng-if="vm.filters.agebs">| <strong>AGEB:</strong> {{vm.filters.agebs.properties.cve_geoage}}</span>
+                                <span ng-if="vm.filters.colonia">| <strong>Colonia:</strong> {{vm.filters.colonia.properties.nombre}}</span>
+                            </div>
+                            <div ng-if="!vm.filters.type_filter_year">( {{years_delitos.minValue}}<span ng-if="years_delitos.minValue!=years_delitos.maxValue"> a {{years_delitos.maxValue}}</span> )</div>
+                            <div ng-if="vm.filters.type_filter_year">( {{vm.filters.pickerStart.date | date:'dd/MM/yyyy'}} a {{vm.filters.pickerEnd.date | date:'dd/MM/yyyy'}} )</div>
+                        </div>
+                        <highchart id="delitos-anio" config="vm.blocks.delitos_graph.anio"  width="100%" ></highchart>
+                    <div class="hidden" id="table-delitos-anio">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>ANIO</th>
+                                <th>NUMERO DE DELITOS</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="row in vm.delitoAnio" >
+                                <td>{{row.name}}</td>
+                                <td>{{row.y}}</td>
+                            </tr>
+                            </tbody>
+                            <caption ng-bind-html="vm.captionDescription"></caption>
+                        </table>
+                    </div>
+                    <div class="btn-downlaod-wraper text-right" has-any-authority="ROLE_CIUDADANO,ROLE_INVESTIGADOR,ROLE_ADMIN">
+                        <a ng-click="downloadDelitosAnio()" class="btn btn-sm btn-default btn-marked" target="_blank" href >Descargar Tabla de Datos</a>
+                    </div>
+                    <br>
+                    <div class="description text-right"><strong>Fuente:</strong> Fiscalía General del Estado de Jalisco.</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 description fiscalia-description">
+            <p ng-bind-html="vm.captionDescription"></p>
+        </div>
+    </div>
+    <!-- TABLA MUNICIPIOS-->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">Municipios
+                    <span class="wrapper-download-options" has-any-authority="ROLE_CIUDADANO,ROLE_INVESTIGADOR,ROLE_ADMIN" >
+                        <a ng-if=" !vm.download.link.mun==='' || vm.download.link.mun" class="pull-right btn-dd" target="_blank" href="../content/documents/diccionario_de_datos.xlsx">| Diccionario de datos</a>
+                        <a ng-disabled="vm.download.link.mun==='' || !vm.download.link.mun" class="pull-right btn btn-sm btn-default" target="_blank" href="{{vm.download.link.mun}}">Descargar</a>
+                        <select class="pull-right" ng-model="vm.download.format.mun" ng-options="item as item.name for item in vm.catalogs.formats track by item.id">
+                            <option value="">Seleccionar formato</option>
+                        </select>
+                    </span>
+                </div>
+                <div class="panel-body">
+                    <div class="content-area">
+                        <div class="table-responsive">
+
+                            <table id="table-mun" class="jh-table table table-striped" ts-wrapper  ts-display-pagination="true">
+                                <thead>
+                                    <tr>
+                                        <th ts-criteria="nombre|lowercase" ts-default>Municipio</th>
+                                        <th ts-criteria="pob_tot|parseInt">Población</th>
+                                        <th ts-criteria="analf||parseFloat">Analfabetismo</th>
+                                        <th ts-criteria="sprim||parseFloat">Sin primaria</th>
+                                        <th ts-criteria="ovsde||parseFloat">Sin drenaje</th>
+                                        <th ts-criteria="ovsee||parseFloat">Sin energía eléctrica</th>
+                                        <th ts-criteria="ovsae||parseFloat">Sin agua entubada</th>
+                                        <th ts-criteria="vhac||parseFloat">Hacinamiento</th>
+                                        <th ts-criteria="po2sm||parseFloat">Ingreso 2 salarios mínimos</th>
+                                        <th ts-criteria="gmm">Grado de marginación</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="im_mun in vm.blocks.im_mun.result  track by im_mun.nombre" ts-repeat>
+                                        <td>{{im_mun.nombre}}</td>
+                                        <td>{{im_mun.pob_tot| number }}</td>
+                                        <td>{{im_mun.analf}}%</td>
+                                        <td>{{im_mun.sprim}}%</td>
+                                        <td>{{im_mun.ovsde}}%</td>
+                                        <td>{{im_mun.ovsee}}%</td>
+                                        <td>{{im_mun.ovsae}}%</td>
+                                        <td>{{im_mun.vhac}}%</td>
+                                        <td>{{im_mun.po2sm}}%</td>
+                                        <td>{{im_mun.gmm}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="description text-right"><strong>Fuente:</strong> {{vm.abstracts.municipios}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- TABLA  AGEBS -->
+        <div class="col-sm-12" ng-if="vm.filters.municipios || vm.cql.map.gm"  has-any-authority="ROLE_INVESTIGADOR,ROLE_ADMIN">
+            <div class="panel panel-default">
+                <div class="panel-heading">AGEBS
+                    <span class="wrapper-download-options" has-any-authority="ROLE_CIUDADANO,ROLE_INVESTIGADOR,ROLE_ADMIN" >
+                        <a ng-if=" !vm.download.link.ageb==='' || vm.download.link.ageb" class="pull-right btn-dd" target="_blank" href="../content/documents/diccionario_de_datos.xlsx">| Diccionario de datos</a>
+                        <a ng-disabled="vm.download.link.ageb==='' || !vm.download.link.ageb" class="pull-right btn btn-sm btn-default" target="_blank" href="{{vm.download.link.ageb}}">Descargar</a>
+                        <select class="pull-right" ng-model="vm.download.format.ageb" ng-options="item as item.name for item in vm.catalogs.formats track by item.id">
+                            <option value="">Seleccionar formato</option>
+                        </select>
+                     </span>
+                </div>
+                <div class="panel-body" >
+                    <div class="content-area">
+                        <div class="table-responsive">
+
+                            <table class="jh-table table table-striped" ts-wrapper  ts-display-pagination="true">
+                                <thead>
+                                    <tr>
+                                        <th ts-criteria="ageb|lowercase" ts-default>AGEB</th>
+                                        <th ts-criteria="pob_tot|parseInt">Población</th>
+                                        <th ts-criteria="p6a14nae|parseFloat">6 a 14 años que no asiste a escuela</th>
+                                        <th ts-criteria="p15ymssc|parseFloat">15 ó más años sin secundaria completa</th>
+                                        <th ts-criteria="psdss|parseFloat">Sin servicios de salud</th>
+                                        <th ts-criteria="hfm15a49|parseFloat">Hijos fallecidos de mujeres de 15 a 49 años</th>
+                                        <th ts-criteria="vsadv|parseFloat">Viviendas sin agua entubada</th>
+                                        <th ts-criteria="vsdrpfs|parseFloat">Viviendas sin drenaje</th>
+                                        <th ts-criteria="vhacina|parseFloat">Hacinamiento</th>
+                                        <th ts-criteria="vsrefri|parseFloat">Viviendas sin refrigerador</th>
+                                        <th ts-criteria="gmu|lowercase">Grado de marginación</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="im_agebs in vm.blocks.im_agebs.result"  ts-repeat>
+                                    <td>{{im_agebs.ageb}}</td>
+                                    <td>{{im_agebs.pob_tot | number}}</td>
+                                    <td>{{im_agebs.p6a14nae| number:2}}%</td>
+                                    <td>{{im_agebs.p15ymssc| number:2}}%</td>
+                                    <td>{{im_agebs.psdss| number:2}}%</td>
+                                    <td>{{im_agebs.hfm15a49| number:2}}</td>
+                                    <td>{{im_agebs.vsadv| number:2}}%</td>
+                                    <td>{{im_agebs.vsdrpfs| number:2}}%</td>
+                                    <td>{{im_agebs.vhacina| number:2}}%</td>
+                                    <td>{{im_agebs.vsrefri| number:2}}%</td>
+                                    <td>{{im_agebs.gmu}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="description text-right"><strong>Fuente:</strong> {{vm.abstracts.agebs}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- TABLA COLONIAS -->
+        <div class="col-sm-12" ng-if="vm.filters.municipios || vm.cql.map.gm">
+            <div class="panel panel-default">
+                <div class="panel-heading">Colonias
+                    <span class="wrapper-download-options" has-any-authority="ROLE_CIUDADANO,ROLE_INVESTIGADOR,ROLE_ADMIN" >
+                        <a ng-if=" !vm.download.link.col==='' || vm.download.link.col" class="pull-right btn-dd" target="_blank" href="../content/documents/diccionario_de_datos.xlsx">| Diccionario de datos</a>
+                        <a ng-disabled="vm.download.link.col==='' || !vm.download.link.col" class="pull-right btn btn-sm btn-default" target="_blank" href="{{vm.download.link.col}}">Descargar</a>
+                        <select class="pull-right" ng-model="vm.download.format.col" ng-options="item as item.name for item in vm.catalogs.formats track by item.id">
+                            <option value="">Seleccionar formato</option>
+                        </select>
+                    </span>
+                </div>
+                <div class="panel-body">
+                    <div class="content-area">
+                        <div class="table-responsive">
+                            <table class="jh-table table table-striped" ts-wrapper  ts-display-pagination="true">
+                                <thead>
+                                    <tr>
+                                        <th ts-criteria="nombre|lowercase" ts-default>Nombre</th>
+                                        <th ts-criteria="cp|parseInt" >CP</th>
+                                        <th ts-criteria="pob1|parseInt">Población</th>
+                                        <th ts-criteria="ind1|parseFloat">6 a 14 años que no asiste a escuela</th>
+                                        <th ts-criteria="ind2|parseFloat">15 ó más años sin secundaria completa</th>
+                                        <th ts-criteria="ind3|parseFloat">Sin servicios de salud</th>
+                                        <th ts-criteria="ind4|parseFloat">Hijos fallecidos de mujeres de 15 a 49 años</th>
+                                        <th ts-criteria="ind5|parseFloat">Viviendas sin agua entubada</th>
+                                        <th ts-criteria="ind6|parseFloat">Viviendas sin drenaje</th>
+                                        <th ts-criteria="ind7|parseFloat">Hacinamiento</th>
+                                        <th ts-criteria="ind8|parseFloat">Viviendas sin refrigerador</th>
+                                        <th ts-criteria="grado|lowercase">Grado de Marginación</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="im_colonias in vm.blocks.im_colonias.result"  ts-repeat>
+                                    <td>{{im_colonias.nombre}}</td>
+                                    <td>{{im_colonias.cp.replace('.00000000000', '')}}</td>
+                                    <td>{{im_colonias.pob1 | number:0}}</td>
+                                    <td>{{im_colonias.ind1 | number:2}}%</td>
+                                    <td>{{im_colonias.ind2 | number:2}}%</td>
+                                    <td>{{im_colonias.ind3 | number:2}}%</td>
+                                    <td>{{im_colonias.ind4 | number:2}}</td>
+                                    <td>{{im_colonias.ind5 | number:2}}%</td>
+                                    <td>{{im_colonias.ind6 | number:2}}%</td>
+                                    <td>{{im_colonias.ind7 | number:2}}%</td>
+                                    <td>{{im_colonias.ind8 | number:2}}%</td>
+                                    <td>{{im_colonias.grado}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="description text-right"><strong>Fuente:</strong> {{vm.abstracts.colonias}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GRAFICA MUNICIPIOS -->
+        <div class="row" ng-show="!vm.filters.municipios || vm.cql.map.gm">
+            <!-- Pob por municipio -->
+            <div class="col-sm-12" >
+                <div class="panel panel-default">
+                    <div class="panel-heading">Población por municipios
+                        <button id="download-chart-pob-total" class="pull-right btn btn-sm btn-default" has-any-authority="ROLE_CIUDADANO,ROLE_INVESTIGADOR,ROLE_ADMIN" >Descargar PNG</button>
+                    </div>
+                    <div class="panel-body" style="overflow: hidden">
+                        <highchart id="pob-total" config="vm.blocks.im_mun_graph.pob_tot"  width="100%"></highchart>
+                        <div class="description text-right"><br><strong>Fuente:</strong> {{vm.abstracts.municipios}}</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Analfabetismo por municipio -->
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Analfabetismo por municipios
+                        <button id="download-chart-ana-mun"  class="pull-right btn btn-sm btn-default" has-any-authority="ROLE_CIUDADANO,ROLE_INVESTIGADOR,ROLE_ADMIN" >Descargar PNG</button>
+                    </div>
+                    <div class="panel-body" style="overflow: hidden">
+                        <highchart id="ana-mun" config="vm.blocks.im_mun_graph.analfb"  width="100%" ></highchart>
+                        <div class="description text-right"><br><strong>Fuente:</strong> {{vm.abstracts.municipios}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-show="!vm.filters.municipios">
+            <!-- Hacinamiento -->
+            <div class="col-sm-12" >
+                <div class="panel panel-default">
+                    <div class="panel-heading">Hacinamiento por municipios
+                        <button id="download-chart-hacina-mun" class="pull-right btn btn-sm btn-default" has-any-authority="ROLE_CIUDADANO,ROLE_INVESTIGADOR,ROLE_ADMIN" >Descargar PNG</button>
+                    </div>
+                    <div class="panel-body" style="overflow: hidden">
+                        <highchart id="hacina-mun" config="vm.blocks.im_mun_graph.hacina"  width="100%"></highchart>
+                        <div class="description text-right"><br><strong>Fuente:</strong> {{vm.abstracts.municipios}}</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Sin primaria -->
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Población sin primaria por municipios
+                        <button id="download-chart-sprim-mun" class="pull-right btn btn-sm btn-default" has-any-authority="ROLE_CIUDADANO,ROLE_INVESTIGADOR,ROLE_ADMIN" >Descargar PNG</button>
+                    </div>
+                    <div class="panel-body" style="overflow: hidden">
+                        <highchart id="sprim-mun" config="vm.blocks.im_mun_graph.sprim"  width="100%"></highchart>
+                        <div class="description text-right"><br><strong>Fuente:</strong> {{vm.abstracts.municipios}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GRAFICA AGEBS -->
+        <div class="row" ng-show="vm.filters.municipios&&!vm.filters.agebs || vm.cql.map.gm"  has-any-authority="ROLE_INVESTIGADOR,ROLE_ADMIN">
+            <!-- Pob por AGEB -->
+            <div class="col-sm-12" >
+                <div class="panel panel-default">
+                    <div class="panel-heading">Población por AGEBS
+                        <button id="download-ageb-chart-pob-total" class="pull-right btn btn-sm btn-default" has-any-authority="ROLE_CIUDADANO,ROLE_INVESTIGADOR,ROLE_ADMIN" >Descargar PNG</button>
+                    </div>
+                    <div class="panel-body" style="overflow: hidden">
+                        <highchart id="pob-total-ageb" config="vm.blocks.im_ageb_graph.pob_tot"  width="100%"></highchart>
+                        <div class="description text-right"><br><strong>Fuente:</strong> {{vm.abstracts.agebs}}</div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Hacinamiento por AGEB-->
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Hacinamiento por AGEBS
+                        <button id="download-ageb-chart-hacina-total" class="pull-right btn btn-sm btn-default" has-any-authority="ROLE_CIUDADANO,ROLE_INVESTIGADOR,ROLE_ADMIN" >Descargar PNG</button>
+                    </div>
+                    <div class="panel-body" style="overflow: hidden">
+                        <highchart id="hacina-ageb" config="vm.blocks.im_ageb_graph.hacina"  width="100%"></highchart>
+                        <div class="description text-right"><br><strong>Fuente:</strong> {{vm.abstracts.agebs}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- GRAFICA COLONIAS -->
+        <div class="row" ng-show="vm.filters.municipios&&!vm.filters.colonia || vm.cql.map.gm">
+            <!-- Pob por Colonia -->
+            <div class="col-sm-12" >
+                <div class="panel panel-default">
+                    <div class="panel-heading">Población por colonias
+                        <button id="download-colonia-chart-pob-total" class="pull-right btn btn-sm btn-default" has-any-authority="ROLE_CIUDADANO,ROLE_INVESTIGADOR,ROLE_ADMIN" >Descargar PNG</button>
+                    </div>
+                    <div class="panel-body" style="overflow: hidden">
+                        <highchart id="pob-total-colonia" config="vm.blocks.im_col_graph.pob_tot"  width="100%"></highchart>
+                        <div class="description text-right"><br><strong>Fuente:</strong> {{vm.abstracts.colonias}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

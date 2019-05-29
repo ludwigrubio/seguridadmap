@@ -1,0 +1,35 @@
+
+<div>
+    <h2><span data-translate="seguridMapApp.panel.detail.title">Panel</span> {{vm.panel.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="seguridMapApp.panel.nombre">Nombre</span></dt>
+        <dd>
+            <span>{{vm.panel.nombre}}</span>
+        </dd>
+        <dt><span data-translate="seguridMapApp.panel.descripcion">Descripcion</span></dt>
+        <dd>
+            <span>{{vm.panel.descripcion}}</span>
+        </dd>
+        <dt><span data-translate="seguridMapApp.panel.wms">Wms</span></dt>
+        <dd>
+            <a ui-sref="wms-detail({id:vm.panel.wms.id})">{{vm.panel.wms.nombre}}</a>
+        </dd>
+        <dt><span data-translate="seguridMapApp.panel.author">Author</span></dt>
+        <dd>
+            {{vm.panel.author.id}}
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="panel-detail.edit({id:vm.panel.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

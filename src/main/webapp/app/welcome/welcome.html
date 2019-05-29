@@ -1,0 +1,81 @@
+<div class="welcome">
+    <div class="wrapper-title">
+        <h1 class="title-map">Bienvenido a Seguridad Map Jalisco</h1>
+    </div>
+    <div class="container">
+        <div class="content row">
+            <div class="col-sm-6 info-profile cityzen">
+                <div class="well">
+                    <div class="img-ico"></div>
+                    <h3>Ciudadano</h3><br>
+                    Si usted es un ciudadano preocupado por el entorno en donde vive y
+                    desea conocer más acerca de los indicadores que impactan a su colonia
+                    o área de residencia puede acceder al mapa de monitoreo ciudadano,
+                    o puede registrase.
+                    </br>
+                    <div class="btn-actions-wrapper text-center">
+                        <a class="btn btn-primary" ng-click="vm.goDashboard()">Ir al mapa de análisis</a>
+                        <a  class="btn btn-primary" ng-click="vm.register('ROLE_CIUDADANO')"> Regístrese</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 info-profile investigator">
+                <div class="well">
+                    <div class="img-ico"></div>
+                    <h3>Investigador</h3><br>
+                    Si usted es un investigador y requiere de información actualizada y
+                    veraz además de generación de reportes y cruce de información georreferenciada,
+                    regístrese para acceder a estas y otras funcionalidades.
+                    </br>
+                    <div class="btn-actions-wrapper text-center">
+                        <a class="btn btn-primary" ng-click="vm.goDashboard()">Ir al mapa de análisis</a>
+                        <a  class="btn btn-primary" ng-click="vm.register('ROLE_INVESTIGADOR')"> Regístrese</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <openlayers id="frontmap"  class="panel-map" height="500px"></openlayers>
+    <div class="wrapper-mainbtn">
+        <a class="btn btn-success"  ng-click="vm.goDashboard()">
+            Ir al mapa de análisis
+        </a>
+    </div>
+    <div class="container">
+        <div class="content row">
+            <h2>Sitios de interés</h2>
+                <div class="col-sm-6 col-md-3  site-interest text-center retos">
+                    <div class="well">
+                        <a href="https://retos.jalisco.gob.mx/" target="_blank">
+                            <img src="../../content/images/logo-retos.svg" class="img-retos"/>
+                        </a>
+                        <h3><a href="https://retos.jalisco.gob.mx/" target="_blank">Retos Jalisco</a></h3>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3 site-interest text-center datos">
+                    <div class="well">
+                        <a href="https://datos.jalisco.gob.mx/" target="_blank">
+                            <img src="../../content/images/datos.png" class="img-datos"/>
+                        </a>
+                        <h3><a href="https://datos.jalisco.gob.mx/" target="_blank">Datos Jalisco</a></h3>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3 site-interest text-center iieg">
+                    <div class="well">
+                        <a href="http://www.iieg.gob.mx/index.php" target="_blank">
+                            <img src="../../content/images/logo-iieg.png" class="img-iieg"/>
+                        </a>
+                        <h3><a href="http://www.iieg.gob.mx/index.php" target="_blank">IIEGJ</a><h3>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3 site-interest text-center fge">
+                    <div class="well">
+                        <a href="http://fge.jalisco.gob.mx/" target="_blank">
+                            <img src="../../content/images/fiscalia_general.svg" class="img-fge"/>
+                        </a>
+                        <h3><a href="http://fge.jalisco.gob.mx/" target="_blank">Fiscalía General</a></h3>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>

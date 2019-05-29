@@ -1,0 +1,25 @@
+{
+    "seguridMapApp": {
+        "wms" : {
+            "home": {
+                "title": "Wms",
+                "createLabel": "Create a new Wms",
+                "createOrEditLabel": "Create or edit a Wms",
+                "search": "Search for Wms"
+            },
+            "created": "A new Wms is created with identifier {{ param }}",
+            "updated": "A Wms is updated with identifier {{ param }}",
+            "deleted": "A Wms is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Wms {{ id }}?"
+            },
+            "detail": {
+                "title": "Wms"
+            },
+            "nombre": "Nombre",
+            "url": "Url",
+            "capa": "Capa",
+            "author": "Author"
+        }
+    }
+}

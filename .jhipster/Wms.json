@@ -1,0 +1,42 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "otherEntityName": "user",
+            "relationshipName": "author",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id",
+            "relationshipValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "nombre",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "url",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "capa",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20170107145139",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "wms",
+    "pagination": "pagination"
+}

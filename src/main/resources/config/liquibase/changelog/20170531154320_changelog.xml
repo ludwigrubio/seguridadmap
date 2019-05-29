@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+   <changeSet author="ludwig (generated)" id="1496245424149-1">
+      <createTable tableName="user_report">
+         <column autoIncrement="true" name="id" type="BIGINT">
+            <constraints primaryKey="true" primaryKeyName="user_reportPK"/>
+         </column>
+      </createTable>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1496245424149-2">
+      <dropNotNullConstraint columnDataType="bigint" columnName="author_id" tableName="panel"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1496245424149-3">
+      <dropNotNullConstraint columnDataType="bigint" columnName="author_id" tableName="wms"/>
+   </changeSet>
+   <changeSet author="ludwig (generated)" id="1496245424149-4">
+      <dropNotNullConstraint columnDataType="bigint" columnName="wms_id" tableName="panel"/>
+   </changeSet>
+</databaseChangeLog>

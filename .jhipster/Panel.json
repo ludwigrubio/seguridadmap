@@ -1,0 +1,41 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "wms",
+            "otherEntityName": "wms",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "nombre"
+        },
+        {
+            "otherEntityName": "user",
+            "relationshipName": "author",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id",
+            "relationshipValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "nombre",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "descripcion",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170107030611",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "panel",
+    "pagination": "pagination"
+}

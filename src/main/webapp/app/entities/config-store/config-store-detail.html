@@ -1,0 +1,27 @@
+
+<div>
+    <h2><span data-translate="seguridMapApp.configStore.detail.title">Config Store</span> {{vm.configStore.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="seguridMapApp.configStore.key">Key</span></dt>
+        <dd>
+            <span>{{vm.configStore.key}}</span>
+        </dd>
+        <dt><span data-translate="seguridMapApp.configStore.value">Value</span></dt>
+        <dd>
+            <span>{{vm.configStore.value}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="config-store-detail.edit({id:vm.configStore.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>
